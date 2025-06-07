@@ -23,11 +23,11 @@ class Zold < Formula
     ENV['LDFLAGS'] = "-L#{openssl_prefix}/lib"
     ENV['CPPFLAGS'] = "-I#{openssl_prefix}/include"
 
-    system 'gem', 'install', cached_download,
-      '--no-document',
-      '--',
-      "--with-cppflags=-I#{openssl_prefix}/include",
-      "--with-ldflags=-L#{openssl_prefix}/lib"
+    system 'rbenv', 'exec', 'gem', 'install', cached_download,
+    '--no-document',
+    '--',
+    "--with-cppflags=-I#{openssl_prefix}/include",
+    "--with-ldflags=-L#{openssl_prefix}/lib"    
 
     bin_path = Utils.safe_popen_read('ruby', '-e', 'puts Gem.bindir').chomp
     (bin / 'zold').write_env_script "#{bin_path}/zold", {
